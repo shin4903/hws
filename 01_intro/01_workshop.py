@@ -12,9 +12,21 @@ a = 458345
 b = 623576
 print(a+b)
 
+answer = 458345 + 623576
+print(answer)
+
 greeting = 'Hello'
 month = 'July'
-print(greeting,month)
+print(greeting, month)
+print(f'{greeting} {month}')
+answer = greeting + ' ' + month
+print(answer)
 
 hello = input()
-print(hello)
+hi = input()
+print(hello + hi)
+# '3' + '2' == '32'
+# 문자열을 정수로 형변환 한 후에 계산한다.
+hello = int(input())
+hi = int(input())
+print(hello + hi)
