@@ -16,15 +16,13 @@
 [출력 예시]
 15103
 ```
+
 ```python
 num = int(input())
 num2 = int(input())
 
 print(num + num2)
 ```
-
-
-
 
 ### Dictionary를 활용하여 평균 구하기
 

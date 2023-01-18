@@ -29,6 +29,21 @@ for key in dict:
 
 print(price/count)
 
+
+
+########## practice1 자판기 메뉴 표현
+menu = {'coke' : 500 ,' cidar' : 700, 'lemon' : 4500, 'orange' : 2000, 'choco' : 1200, 'americano' : 3600}
+money = 30000
+for menu_name in menu:
+    price = menu[menu_name]
+    if menu_name == 'coke' or menu_name == 'cidar' :
+        money -= price * 2
+    else:
+        money -= price
+
+print(money)
+
+
 ########## practice2 항구의 배 표시하기
 
 true_port = [4,8,9,15]
@@ -43,30 +58,37 @@ odd_ports = []
 count = 0
 for ship in ports:
     count += 1
-    if ship == True:
-        odd_ports.append(count)
+    if  count % 2 == 1:
+        odd_ports.append(ports[count-1])
 print(odd_ports)
 
+# odd_ports = ports[0:15:2]
+# print(odd_ports)
 
 ######## practice3 로또 당첨 여부 확인하기
 
-ssafy_choice = [1, 12, 27, 33, 38, 42]
-lucky_numbers = [7, 15, 27, 33, 37, 42]
 
-for l_n in lucky_numbers:
-    ssafy_choice.append(l_n)
+# ssafy_choice = [1, 12, 27, 33, 38, 42]
+# lucky_numbers = [7, 15, 27, 33, 37, 42]
+# for l_n in lucky_numbers:
+#     ssafy_choice.append(l_n)
 
-number = len(ssafy_choice)
-ssafy_lucky = len(set(ssafy_choice))
-count = number-ssafy_lucky
+# number = len(ssafy_choice)
+# ssafy_lucky = len(set(ssafy_choice))
+# count = number-ssafy_lucky
+# print(count)
+
+ssafy_choice = {1, 12, 27, 33, 38, 42}
+lucky_numbers = {7, 15, 27, 33, 37, 42}
+count = len(ssafy_choice & lucky_numbers)
 print(count)
 
 ######## practice4 도시 정보 구조화하기
 
-air_info = [{'name': 'A', 'capital': 'capital', 'o2':3, 'Co2':2},{'name': 'B', 'capital': 'noncapital', 'o2':5, 'Co2':3}]
+air_info = [{'name': 'A', 'capital': 'True', 'air_status' : {'o2':3, 'Co2':2}},{'name': 'B', 'capital': 'False', 'air_status' : {'o2':5, 'Co2':3}}]
 
 O2_info = []
 for i in range(len(air_info)):
-    O2_info.append(air_info[i]['o2'])
+    O2_info.append(air_info[i]['air_status']['o2'])
 
 print(O2_info)
