@@ -29,17 +29,9 @@ print(collatz(16))  # => 4
 print(collatz(27))  # => 111
 print(collatz(626331))  # => -1
 
-# num = 27
-# cnt = 0
-# for i in range(1,501):
-#     if num == 1:
-#         print(cnt)
-#         break
-#     elif num % 2 == 1:
-#         num = num * 3 + 1
-#         cnt += 1
-#     elif num % 2 == 0:
-#         num = num // 2
-#         cnt += 1
-#     if i == 500:
-#         print(-1)
+#######################################
+
+pcollatz(6)  # => 8
+collatz(16) # => 4
+collatz(27) # => 111
+collatz(626331)  # => -1

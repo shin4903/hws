@@ -59,7 +59,7 @@ class Pokemon:
                 return
 
 
-"""print(Pokemon.population,'피카츄가 태어나기 전')
+print(Pokemon.population,'피카츄가 태어나기 전')
 
 # pika == Pokemon의 인스턴스
 # 생성자에는 2개의 인자를 넣어주기로 했다.
@@ -72,19 +72,19 @@ pika.attack()
 print(Pokemon.population,'피카츄가 태어난 후')
 
 
-print('ㅡㅡㅡㅡㅡㅡㅡ')"""
+print('ㅡㅡㅡㅡㅡㅡㅡ')
 
 # 똑같이 pokemon에 해당하는 새로운 객체를 생성한다.
-'''meta = Pokemon('메타몽', 5)
+meta = Pokemon('메타몽', 5)
 print(meta.name)
 print(meta.lv, meta.skill, meta.hp)
 print(meta.info)
-meta.attack()'''
+meta.attack()
 
 # print(pika.population) # 접근해서 출력은 가능한데...
 
 # pika.population += 1
 # print(pika.population)  # 1
 # print(Pokemon.population) # 0
-"""
-Pokemon.battle(pika,meta)"""
+
+Pokemon.battle(pika,meta)
