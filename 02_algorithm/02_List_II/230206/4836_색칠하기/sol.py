@@ -3,16 +3,18 @@ sys.stdin = open('input.txt')
 
 T = int(input())
 
-for tc in range(T):
-    arr = [num for num in range(10)] * 10
+for tc in range(1,T+1):
+    arr = [[0]*10 for _ in range(10)]
     N = int(input())
-    di = [0, 0, -1, 1]
-    dj = [-1, 1, 0, 0]
-    for i in range(N):
-        for j in range(N):
-            for k in range(4):
-                ni = i + di[k]
-                nj = j + di[k]
-                if 0 <= ni < N and 0 <= nj < N:
-                    test = arr[ni][nj]
-                    print(test)
+    for _ in range(N):
+        A = list(map(int,input().split()))
+
+        for i in range(A[0],A[2]+1):
+            for j in range(A[1],A[3]+1):
+                arr[i][j] += A[4]
+    cnt = 0
+    for i in range(10):
+        for j in range(10):
+            if arr[i][j] == 3:
+                cnt += 1
+    print(f'#{tc}',cnt)
