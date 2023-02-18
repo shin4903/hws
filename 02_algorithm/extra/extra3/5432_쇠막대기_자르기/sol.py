@@ -8,22 +8,18 @@ for tc in range(1,T+1):
     rasier = []
     print(steel)
     cnt = 0
-    length = 0
-    len_list = []
     for i in range(len(steel)):
         if stack and stack[-1] == '(' and steel[i-1] == '(' and steel[i] ==')': # 레이저의 위치
             stack.pop()
             rasier.append(i)
-            cnt -= 1
-            length += 1
+            cnt += 1
             continue
         if stack and stack[-1] == '(' and steel[i] == ')' and steel[i-1] != '(': #
             stack.pop()
             cnt += 1
-            length += 1
             continue
 
         stack.append(steel[i])
         cnt += 1
-        length += 1
+
     print(rasier)

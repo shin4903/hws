@@ -12,7 +12,7 @@ def DFS(start):
             #그럼 멈춤
             return 1
         for next in range(1, V+1):
-            if data[start][next] and not  visited[next]:
+            if data[start][next] and not visited[next]:
                 visited[next] = 1
                 stack.append(next)
     return 0
