@@ -6,34 +6,43 @@ for tc in range(1, 11):
     cal = input()
     stack = [] # 연산자들을 담을 스택
     result = '' # 최종 결과값
-
-    # 후위연산식 만들기기
-   for char in cal: # 전체 식을 순회하며
-        if char in '*+': # 연산자들이고
-            if char == '*': # 곱하기 일 때
-                while stack and stack[-1] in '*': # stack에 값이 있고
+    for char in cal:
+        if char in '+-*/()':
+            if char == '(':
+                stack.append(char)
+            elif char in '*/':
+                while stack and stack[-1] in '*/':
                     result += stack.pop()
                 stack.append(char)
-            elif char == '+':
-                while stack:
+            elif char in '+-':
+                while stack and stack[-1] != '(':
                     result += stack.pop()
                 stack.append(char)
+            elif char == ')':
+                while stack and stack[-1] != '(':
+                    result += stack.pop()
+                stack.pop()
         else:
             result += char
-    # print(stack)
     while stack:
         result += stack.pop()
 
-    # 계산 실행
+
     stack2 = []
-    for re in result:
-        if re not in '+*':
-            stack2.append(re)
+    result2 = 0
+
+    for char in result:
+        if char not in '+-*/':
+            stack2.append(char)
         else:
-            w = int(stack2.pop())
-            z = int(stack2.pop())
-            if re == '+':
-                stack2.append(w + z)
-            if re == '*':
-                stack2.append(w * z)
-    print(f'#{tc}', *stack2)
+            x = int(stack2.pop())
+            y = int(stack2.pop())
+            if char == '*':
+                stack2.append(y * x)
+            elif char == '/':
+                stack2.append(y / x)
+            elif char == '+':
+                stack2.append(y + x)
+            elif char == '-':
+                stack2.append(y - x)
+    print(stack2[-1])

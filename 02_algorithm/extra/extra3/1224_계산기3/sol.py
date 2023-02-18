@@ -1,1 +1,48 @@
-print((4+8+4*(8*5*(7*(6*8)+3+(6+(3+7+1*7*5*4)*3)*2*3+5)+6+7*7)*4+2+9*4+7+2*3*(7*6*1*8)+9+9))
+import sys
+sys.stdin = open('input.txt')
+
+for tc in range(1,11):
+    N = int(input())
+    cal = input()
+    stack = []
+    result = ''
+
+    for char in cal:
+        if char in '+-*/()':
+            if char == '(':
+                stack.append(char)
+            elif char in '*/':
+                while stack and stack[-1] in '*/':
+                    result += stack.pop()
+                stack.append(char)
+            elif char in '+-':
+                while stack and stack[-1] != '(':
+                    result += stack.pop()
+                stack.append(char)
+            elif char == ')':
+                while stack and stack[-1] != '(':
+                    result += stack.pop()
+                stack.pop()
+        else:
+            result += char
+    while stack:
+        result += stack.pop()
+
+    stack2 = []
+
+    for char in result:
+        if char not in '+-*/':
+            stack2.append(char)
+        else:
+            x = int(stack2.pop())
+            y = int(stack2.pop())
+            if char == '*':
+                stack2.append(y * x)
+            elif char == '+':
+                stack2.append(y + x)
+            elif char == '-':
+                stack2.append(y - x)
+            elif char == '/':
+                stack2.append(y / x)
+
+    print(f'#{tc}',stack2[-1])
