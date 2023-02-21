@@ -33,7 +33,8 @@ def DFS_recur(x,y):
         if 0 <= nx < 16 and 0 <= ny < 16 and maze[nx][ny] != 1 and visited[nx][ny] != 1:
             if maze[nx][ny] == 3:
                 return 1
-            return DFS_recur(nx,ny)
+            maze[nx][ny] = 1
+            DFS_recur(nx, ny)
     return 0
 
 for tc in range(1,11):
