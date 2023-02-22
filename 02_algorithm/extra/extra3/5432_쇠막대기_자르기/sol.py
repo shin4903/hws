@@ -6,6 +6,7 @@ for tc in range(1,T+1):
     steel = input()
     stack = []
     rasier = []
+
     print(steel)
     cnt = 0
     for i in range(len(steel)):
@@ -13,6 +14,7 @@ for tc in range(1,T+1):
             stack.pop()
             rasier.append(i)
             cnt += 1
+
             continue
         if stack and stack[-1] == '(' and steel[i] == ')' and steel[i-1] != '(': #
             stack.pop()
@@ -21,5 +23,6 @@ for tc in range(1,T+1):
 
         stack.append(steel[i])
         cnt += 1
+
 
     print(rasier)
