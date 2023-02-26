@@ -1,3 +1,5 @@
+import sys
+sys.stdin = open('input.txt')
 def preorder(node):  # 전위 순회
     global cnt
     global N
@@ -31,4 +33,5 @@ for tc in range(1, T + 1):
         else:
             right[p] = c
         parent[c] = p  # 그 자식의 부모 기록
+
     print(f'#{tc} {preorder(N)}')
