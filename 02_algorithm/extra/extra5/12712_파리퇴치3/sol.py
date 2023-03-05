@@ -13,7 +13,7 @@ for tc in range(1,T+1):
 
     maxV = 0
     for x in range(N):
-        for y in range(M):
+        for y in range(N):
             result = arr[x][y]
             for i in range(4):
                 for j in range(1,M):
@@ -26,15 +26,15 @@ for tc in range(1,T+1):
                 maxV = result
 
     for x in range(N):
-        for y in range(M):
+        for y in range(N):
             result = arr[x][y]
             for i in range(4,8):
                 for j in range(1, M):
                     nx = x + dx[i]*j
                     ny = y + dy[i]*j
-                if 0 <= nx < N and 0 <= ny < N:
-                    result += arr[nx][ny]
+                    if 0 <= nx < N and 0 <= ny < N:
+                        result += arr[nx][ny]
 
             if result > maxV:
                 maxV = result
-    print(maxV)
+    print(f'#{tc}',maxV)
