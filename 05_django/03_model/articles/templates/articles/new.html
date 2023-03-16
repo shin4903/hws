@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>게시글 생성 페이지</h1>
+  <form action="{% url 'articles:create' %}">
+    <label for="title">제목 : </label>
+    <input type="text" name="title" id="title">
+
+    <label for="content">내용</label>
+    <input type="text" name="content" id="content">
+
+    <input type="submit">
+    <br>
+    <a href="{% url 'articles:index' %}">INDEX로 이동</a>
+  </form>
+{% endblock content %}
