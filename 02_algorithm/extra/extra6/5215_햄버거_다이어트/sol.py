@@ -1,21 +1,11 @@
 import sys
 sys.stdin = open('input.txt')
 
-def backtrackin(idx ,tmpsco, tmpcal):
-    if tmpcal > cal:
-        return
-    if score <= tmpsco:
-        return
-    for i in range(N):
-        tmpsco += Ti[idx]
-        tmpcal += Ki[idx]
-        idx += 1
-        backtrackin(idx, tmpsco, tmpcal)
-
 
 T = int(input())
 
 for tc in range(1,T+1):
+
     Ti = []
     Ki = []
     N, cal = map(int,input().split())
@@ -24,7 +14,17 @@ for tc in range(1,T+1):
         Ti.append(t)
         Ki.append(k)
 
-    score = 0
+    max_score = 0
+    for i in range(1, 1 << N):
+        score = 0
+        calo = 0
+        for j in range(0, N):
+            if i & (1<<j):
+                score += Ti[j]
+                calo += Ki[j]
+                if calo > cal:
+                    break
+        if calo <= cal:
+            max_score = max(score,max_score)
+    print(f'#{tc}',max_score)
 
-    backtrackin(0,0,0)
-    print()
