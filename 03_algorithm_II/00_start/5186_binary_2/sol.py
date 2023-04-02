@@ -1,10 +1,11 @@
 import sys
 sys.stdin = open('input.txt')
 
-T = int(input())
-for tc in range(1,T+1):
-    N = float(input())
 
+T = int(input())
+for tc in range(1, T+1):
+    N = float(input())
+    # print(N)
     result = ''
     while N:
         N *= 2
@@ -17,4 +18,4 @@ for tc in range(1,T+1):
 
     if len(result) >= 13:
         result = 'overflow'
-    print(f'#{tc}',result)
+    print(result)

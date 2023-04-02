@@ -9,7 +9,7 @@ def backtracking(i, n, tmp):
     if tmp >= cnt:
         return
     elif i < n:
-        for _ in range(m[i]): # 2 1 3 3
+        for _ in range(m[i]):
             i += 1
             tmp += 1
             backtracking(i, n, tmp)

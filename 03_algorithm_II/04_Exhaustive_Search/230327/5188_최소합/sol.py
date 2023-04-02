@@ -13,9 +13,14 @@ def BFS(x,y):
         for i in range(2):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0 <= nx < N and 0 <= ny < N and visited[nx][ny] == 0:
-                visited[nx][ny] = visited[x][y] + arr[nx][ny]
-                q.append((nx,ny))
+            if 0 <= nx < N and 0 <= ny < N:
+                if visited[nx][ny] == 0:
+                    visited[nx][ny] = visited[x][y] + arr[nx][ny]
+                    q.append((nx, ny))
+                elif visited[x][y] + arr[nx][ny] <= visited[nx][ny]:
+                        visited[nx][ny] = visited[x][y] + arr[nx][ny]
+                        q.append((nx,ny))
+
     return
 for tc in range(1,T+1):
     N = int(input())
@@ -25,7 +30,6 @@ for tc in range(1,T+1):
     visited[0][0] = arr[0][0]
     q = []
     BFS(0,0)
-    for i in visited:
-        print(i)
+    print(f'#{tc}',visited[N-1][N-1])
 
 
