@@ -1,0 +1,32 @@
+[
+{
+    "model": "articles.article",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "title": "코코 제목",
+        "content": "코코 내용",
+        "image": "",
+        "created_at": "2023-04-12T00:08:51.005Z",
+        "updated_at": "2023-04-12T00:08:51.005Z",
+        "like_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "articles.article",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "title": "어드민 제목",
+        "content": "어드민 내용",
+        "image": "",
+        "created_at": "2023-04-12T00:09:12.494Z",
+        "updated_at": "2023-04-12T00:09:12.494Z",
+        "like_users": [
+            1
+        ]
+    }
+}
+]
