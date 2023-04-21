@@ -30,7 +30,7 @@ def article_detail(request, article_pk):
     elif request.method == 'DELETE':
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
     elif request.method =='PUT':
         serializer = ArticleListSerializer(article, data=request.data)
         if serializer.is_valid(raise_exception=True):
