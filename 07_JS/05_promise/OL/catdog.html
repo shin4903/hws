@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>CAT & DOG</button><br>
+    <p></p>
+    <img src="">
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const DOG_URL = 'https://dog.ceo/api/breeds/image/random'
+        const CAT_URL = 'https://api.thecatapi.com/v1/images/search'
+
+        const btn = document.querySelector('button')
+        const img = document.querySelector('img')
+        const pTag = document.querySelector('p')
+
+        let count = 0   
+
+        btn.addEventListener('click', function () {
+            count += 1
+            if (count%2 === 1) {
+                axios ({
+            method : 'get',
+            url : DOG_URL,
+            })
+            .then(response => {
+                console.log(response)
+                img.src = response.data.message
+                pTag.innerText = `${count} 번째 사진`
+            })
+
+            } else if (count%2 === 0) {
+                axios ({
+                method : 'get',
+                url : CAT_URL,
+                })
+                .then(response => {
+                    console.log(response)
+                    img.src = response.data[0].url
+                    pTag.innerText = `${count} 번째 사진`
+                })
+            }
+        })
+
+              
+
+
+    </script>
+
+</body>
+</html>
