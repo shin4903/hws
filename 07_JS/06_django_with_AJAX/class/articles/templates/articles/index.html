@@ -1,0 +1,106 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+  <h1>INDEX</h1>
+  <a href="{% url 'articles:create' %}">작성하기</a>
+  <hr />
+
+  {% for article in articles %}
+    <p>
+      [{{article.id}}] 
+      <a href="{% url 'articles:detail' article.pk %}" id="article-title">{{article.title}}</a>
+      - 작성자: <a href="{% url 'accounts:profile' article.user.username %}">{{article.user}}</a>
+    </p>
+    <p>이 게시글을 좋아요 하는 수 : 
+      <!-- 조작 하고자 하는 대상 부분을 span으로 감싸고 고유값 부여 -> JS 조작용 -->
+      <span id="like-count-span-{{ article.pk }}">{{ article.like_users.count }}</span>
+    </p>
+    {% if request.user.is_authenticated %}
+      <div>
+        <!-- axios로 AJAX 요청 보낼거라서 form의 action은 이제 필요없음 -->
+        <!-- 내가 직접 지정할 수 있는 속성 data-* -->
+        <form 
+          class="like-forms"
+          data-article-id="{{ article.pk }}"
+          method="POST"
+        >
+          {% csrf_token %}
+          {% if request.user in article.like_users.all %}
+            <input id="like-button-{{ article.pk }}" type="submit" value="좋아요 취소!">
+          {% else %}
+            <input id="like-button-{{ article.pk }}" type="submit" value="좋아요!">
+          {% endif %}
+        </form>
+      </div>
+    {% endif %}
+    <hr />
+  {% endfor %} 
+
+{% endblock content %}
+
+{% block script %}
+<!-- AJAX 요청을 진행 할건데 -> axios를 써서 진행한다. -->
+<!-- axios CDN이 필요하다. -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // 어떻게 ? axios를 써서 요청을 보낸다. 
+  // -> 어디로? 좋아요 로직 실행해주는 경로로
+  // -> 언제? 좋아요 버튼이 클릭되면
+  // -> 어느 게시글의 좋아요? -> 내가 클릭한 버튼의 게시글의 좋아요.
+    // 모든 form 태그를 다 가지고오는데 -> 회원탈퇴같은 좋아요랑 관계 없는 form 제외하고 가져오기
+  const forms = document.querySelectorAll('.like-forms')
+  // name이 csrfmiddlewaretoken인 태그 하나 선택해 와서, value만 뽑아서 변수에 담는다.
+  // index.html에는 많은 csrfmiddlewaretoken을 가진 input 태그들이 있지만...
+  // 렌더링 될때 동시에 만들어진 애들이라서 어차피 다 value가 똑같다... 아무거나 하나 가져다 쓰면된다.
+  const CSRFToken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  // console.log(forms) // NodeList -> Array
+  forms.forEach(form => {
+    // console.log(form) // Submit event 발생하면, axios AJAX 요청 보내기
+    form.addEventListener('submit', function (event) {
+      
+      // console.log(event.target)
+      // submit 이벤트가 발생해도 form 태그가 action으로 요청 보내지 않도록
+      // 기본 이벤트 전파 중지
+      event.preventDefault()
+      // POST /articles/article_pk/likes/ -> axios로 진행
+      // article_pk를 data-* 속성에 집어넣고, 그걸 써서, 선택된 form이 가지고 있는 값을 가지고온다.
+      // console.log(event.target.dataset.articleId)
+      const articleId = event.target.dataset.articleId
+
+      // 좋아요 버튼 가져오기
+      const likeBtn = document.querySelector(`#like-button-${articleId}`)
+      // 좋아요 유저 수 카운트 문구 가져오기
+      const likeCountSpan = document.querySelector(`#like-count-span-${articleId}`)
+      // console.log(likeBtn)
+      axios({
+        method: 'POST',
+        url: `/articles/${articleId}/likes/`,
+        headers: {
+          'X-CSRFToken': CSRFToken
+        }
+      })
+        .then(res => {
+          // console.log(res.data)
+          // 객체 구조 분해 할당
+          const { isLiked, likedUserCount } = res.data
+          likeCountSpan.innerText = likedUserCount
+          // console.log(isLiked)
+          // 좋아요 했을때 넘겨 받은 데이터 -> true
+          if (isLiked) {
+            // 넘겨 받은 boolean이 true라면?
+            likeBtn.value = '좋아요 취소!'
+            likeBtn.setAttribute('class', 'btn btn-danger')
+          } else {
+            // false 라면?
+            likeBtn.value = '좋아요!'
+            likeBtn.setAttribute('class', 'btn btn-primary')
+          }
+          
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
+  })
+</script>
+{% endblock script %}
