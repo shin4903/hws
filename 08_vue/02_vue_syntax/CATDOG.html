@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="pickedAnimal = 'cat'">CAT</button>
+        <button @click="pickedAnimal = 'dog'">DOG</button>
+        <hr>
+        <!-- <img v-bind:src="caturl"> -->
+        <img v-for="cat in caturl":key="cat.id":src="cat.url" width="300px" height="300px">
+
+        
+       
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const CAT_URL = 'https://api.thecatapi.com/v1/images/search'
+        const app = new Vue({
+            el: '#app',
+            data: {
+                // caturl :''
+                caturl : [],
+                pickedAnimal : ''
+            },
+            methods: {
+                cat () {
+                    axios ({
+                    method: 'get',
+                    url : CAT_URL
+                    })
+                    .then(response => {
+                        // this.caturl(response.data[0].url)
+                        // this.caturl.push(response.data[0].url)
+                        
+                        const {url, id} = response.data[0]
+
+                        const data = {
+                            id,
+                            url
+                        }   
+                        this.caturl.push(data)
+                    })
+                },
+                dog () {
+                    axios ({
+                    method: 'get',
+                    url : 'https://dog.ceo/api/breeds/image/random'
+                    })
+                    .then(response => {
+                        // this.caturl(response.data[0].url)
+                        // this.caturl.push(response.data[0].url)
+                        
+                        const url = response.data.message
+                        const id = new Date().getTime()
+
+                        const data = {
+                            id,
+                            url
+                        }   
+                        this.caturl.push(data)
+                    })
+                },
+            },
+            watch: {
+                    pickedAnimal(newVal, oldVal){
+                       if (newVal ==='cat') {
+                        this.cat()
+                       } else {
+                        this.dog()
+                       }
+                    }
+                }
+        })
+        
+        
+        
+        
+    </script>
+</body>
+</html>
