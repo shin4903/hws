@@ -24,21 +24,31 @@
 <body>
   <div id="app">
     <h1>버튼을 골라주세요</h1>
-    <button @click="select" :class="{selected : isSelected}">선택 1</button>
-    <button>선택 2</button>
+    <button @click="select" :class="isSelect">선택 1</button>
+    <button @click="select2" :class="isSelect2">선택 2</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     const app = new Vue({
       el: '#app',
       data: {
+        isSelect : null,
+        isSelect2 : null
       },
       methods: {
         select() {
-          console.log('123')
+          if (this.isSelect === 'selected') {
+            this.isSelect = null
+          } else {
+            this.isSelect = 'selected'
+          }
         },
-        isSelected(){
-          
+        select2() {
+          if (this.isSelect2 === 'selected') {
+            this.isSelect2 = null
+          } else {
+            this.isSelect2 = 'selected'
+          }
         }
       },
       
